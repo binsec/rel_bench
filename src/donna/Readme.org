@@ -1,0 +1,12 @@
+* Donna
+** Source
+- [[https://github.com/agl/curve25519-donna]]
+- Also in [[file:~/Desktop/hyperproperties/bench/almeida2016_const-time/verifying-constant-time-master/examples/curve25519-donna/donna.c][curve25519-donna]]
+
+** Size
+Compilation: static // non-static
+- donna_O0 :: 138738 // 7083
+- donna_O1 :: 140975 // 4112
+- donna_O2 :: 139386 // 2506
+- donna_O3 :: 141576 // 4643
+- donna_Of :: 141638 // 4650

@@ -1,0 +1,26 @@
+* Toy Examples
+
+** Description
+Tests to check that we do not break everything when
+compiling.
+
+- toys_old :: old specification (hand-defined highs as offsets from
+     =esp=).
+- toys_new :: new specification using =libsym.h=
+
+** Source:
+Hand-crafted.
+
+** Size:
+(Same size with or without static)
+- conditional_secure_O0 :: 161
+- conditional_insecure_O0 :: 161
+- memory_access_secure_O0 :: 166
+- memory_access_insecure_O0 :: 165
+- function_return_secure_O0 :: 175
+- function_return_insecure_O0 :: 175
+- function_call_secure_O0 :: 175
+- function_call_insecure_O0 :: 175
+- loop_secure_O0 :: 194
+- loop_insecure_O0 :: 193
+- double_insecure :: 178

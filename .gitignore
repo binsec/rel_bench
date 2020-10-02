@@ -1,0 +1,17 @@
+# ignore emacs tmp files
+*~
+**/*.el
+*_flymake.*
+**/#*
+
+# ignore python files
+**/*.pyc
+__pycache__/
+
+# ignore ida files
+**/*.id?
+**/*.nam
+**/*.til
+
+# ignore o files
+**/*.o

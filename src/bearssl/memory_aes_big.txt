@@ -1,0 +1,16 @@
+# Setting the canary
+
+# Setting esp
+ebp<32>:=0xffffcc58;
+esp<32>:=0xffffcb70;
+
+# Setting S-boxes
+
+# Symbol Ssm0
+@[0x080B5020,1024] from_file;
+
+# Symbol br_aes_S
+@[0x080B5420,256] from_file;
+
+# Symbol Rcon
+@[0x080B5520,228] from_file;

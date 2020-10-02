@@ -1,0 +1,6 @@
+# Setting the canary
+@[0x00000014, 4] := canary<32>;
+
+# Setting esp
+ebp<32>:=0xffffcc68;
+esp<32>:=0xffffcb70;

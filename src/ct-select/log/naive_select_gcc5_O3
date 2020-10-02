@@ -1,0 +1,90 @@
+binsec -relse -relse-dedup 1 -relse-fp 1 -fml-solver-timeout 0 -relse-timeout 3600 -sse-depth 10000 -sse-paths 50 -sse-memory memory.txt -sse-load-ro-sections -sse-load-sections .got.plt,.data,.plt -fml-solver boolector -relse-store-type sha -relse-memory-type row-map -relse-canonical -sse-address-trace-file /tmp/SMTDIR/trace/ -sse-smt-dir /tmp/SMTDIR/ -sse-comment -relse-untainting -relse-print-model naive_select_gcc5_O3
+[relse:warning] [Stub] Symbol memset not found
+Running sse
+Running relse
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (080484b1, 0) :
+               if ! (ZF<1>) goto (0x080484b8, 0) else goto 1
+[relse:result] Model:
+               --- Model ---
+               # Variables
+               ebp_i : 0x00000000
+               h_080482f5_0_l : 0x00
+               h_080482f5_0_r : 0x01
+               
+               
+               -- empty memory --
+[relse:result] [Exploration] End of the RelSE
+[relse:info] RelSE stats:
+                           Total queries: 
+                                            SAT:	4
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	4
+                                            Time:	0.011761
+                                            Time avg:	0.002940
+                           Exploration queries: 
+                                                  SAT:	2
+                                                  UNSAT:	0
+                                                  Other:	0
+                                                  Total:	2
+                                                  Time:	0.005466
+                                                  Time avg:	0.002733
+                           CF Insecurity queries: 
+                                                    SAT:	1
+                                                    UNSAT:	0
+                                                    Other:	0
+                                                    Total:	1
+                                                    Time:	0.003161
+                                                    Time avg:	0.003161
+                           Mem Insecurity queries: 
+                                                     SAT:	0
+                                                     UNSAT:	0
+                                                     Other:	0
+                                                     Total:	0
+                                                     Time:	0.000000
+                                                     Time avg:	-nan
+                           Insecurity queries: 
+                                                 SAT:	1
+                                                 UNSAT:	0
+                                                 Other:	0
+                                                 Total:	1
+                                                 Time:	0.003161
+                                                 Time avg:	0.003161
+                           Model queries: 
+                                            SAT:	1
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	1
+                                            Time:	0.003134
+                                            Time avg:	0.003134
+                           Enum queries: 
+                                           SAT:	0
+                                           UNSAT:	0
+                                           Other:	0
+                                           Total:	0
+                                           Time:	0.000000
+                                           Time avg:	-nan
+                           Total queries: 
+                                            SAT:	4
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	4
+                                            Time:	0.011761
+                                            Time avg:	0.002940
+                           Query size avg/max:	394.500000 / 396
+                           Checks done/spared:	1 / 30
+                           Coverage: 
+                                       Paths:		2
+                                       Conditions:	1
+                                       DBA Instructions:	123
+                                       x86 Instructions:	37
+                           Packing: 
+                                      Merged paths:		0
+                                      Refused mergers:	0
+                                      Aborted mergers:	0
+                           Violations:		1
+                           Status:	None
+                           Result:	Insecure
+                           Elapsed time:	0.017232
+ 

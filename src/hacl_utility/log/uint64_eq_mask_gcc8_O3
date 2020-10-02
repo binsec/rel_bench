@@ -1,0 +1,78 @@
+binsec -relse -relse-dedup 1 -relse-fp 1 -fml-solver-timeout 0 -relse-timeout 3600 -sse-depth 100000 -sse-paths 50 -sse-memory memory.txt -sse-load-ro-sections -sse-load-sections .got.plt,.data,.plt -fml-solver boolector -relse-store-type sha -relse-memory-type row-map -relse-canonical -sse-address-trace-file /tmp/SMTDIR/trace/ -sse-smt-dir /tmp/SMTDIR/ -sse-comment -relse-untainting -relse-print-model uint64_eq_mask_gcc8_O3
+[relse:warning] [Stub] Symbol memset not found
+Running sse
+Running relse
+[relse:result] [Exploration] End of the RelSE
+[relse:info] RelSE stats:
+                           Total queries: 
+                                            SAT:	0
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	0
+                                            Time:	0.000000
+                                            Time avg:	-nan
+                           Exploration queries: 
+                                                  SAT:	0
+                                                  UNSAT:	0
+                                                  Other:	0
+                                                  Total:	0
+                                                  Time:	0.000000
+                                                  Time avg:	-nan
+                           CF Insecurity queries: 
+                                                    SAT:	0
+                                                    UNSAT:	0
+                                                    Other:	0
+                                                    Total:	0
+                                                    Time:	0.000000
+                                                    Time avg:	-nan
+                           Mem Insecurity queries: 
+                                                     SAT:	0
+                                                     UNSAT:	0
+                                                     Other:	0
+                                                     Total:	0
+                                                     Time:	0.000000
+                                                     Time avg:	-nan
+                           Insecurity queries: 
+                                                 SAT:	0
+                                                 UNSAT:	0
+                                                 Other:	0
+                                                 Total:	0
+                                                 Time:	0.000000
+                                                 Time avg:	-nan
+                           Model queries: 
+                                            SAT:	0
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	0
+                                            Time:	0.000000
+                                            Time avg:	-nan
+                           Enum queries: 
+                                           SAT:	0
+                                           UNSAT:	0
+                                           Other:	0
+                                           Total:	0
+                                           Time:	0.000000
+                                           Time avg:	-nan
+                           Total queries: 
+                                            SAT:	0
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	0
+                                            Time:	0.000000
+                                            Time avg:	-nan
+                           Query size avg/max:	-nan / 0
+                           Checks done/spared:	0 / 40
+                           Coverage: 
+                                       Paths:		1
+                                       Conditions:	8
+                                       DBA Instructions:	374
+                                       x86 Instructions:	84
+                           Packing: 
+                                      Merged paths:		0
+                                      Refused mergers:	0
+                                      Aborted mergers:	0
+                           Violations:		0
+                           Status:	None
+                           Result:	Secure
+                           Elapsed time:	0.010419
+ 

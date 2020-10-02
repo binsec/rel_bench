@@ -1,0 +1,8 @@
+# Setting the canary
+
+# Setting esp
+ebp<32>:=0xffffcc58;
+esp<32>:=0xffffcb70;
+
+# init mem at
+@[0x080B5020,2048] from_file;
