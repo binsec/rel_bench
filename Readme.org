@@ -1,0 +1,95 @@
+* Binsec/Rel Benchmark
+This repository contains the benchmarks used for the experimental
+evaluation in the [[https://binsec.github.io/assets/publications/papers/2020-sp.pdf][Binsec/Rel paper]].
+
+** Files
+- Programs to analyze are located in =./src/[program_name]=,
+- The setup for individual programs can be found in =experiments.py=,
+- The script to run experiments is =run.py=,
+- The =Makefile= contains presets to run =Binsec/Rel= on programs in
+  =./src= with different experimental setups.
+
+Run =run.py --help= for help.
+
+* Running Binsec/Rel experiments
+First, make sure that ~Binsec/Rel~ is in you path.
+
+** Running the tests
+Toy examples to test the tool can be found in =src/toys=. To run
+Binsec/Rel on these toy examples, just run =make tests=.
+
+This will run experiments for the toy examples and check that the
+result of the analysis is correct.
+
+** Presets defined in the Makefile
+This section describes how to quicky run ~Binsec/Rel~ on a set of
+cryptographic primitives. More details on how to use the script
+=run.py= can be found in the next section.
+
+*** Running Experiments with best options
+Run the command corresponding to the file you want to analyze:
+
+| Program                    | Command                |
+|----------------------------+------------------------|
+| ct-select                  | =make ct_select=       |
+| ct-sort                    | =make ct_sort=         |
+| Hacl*_utility              | =make utility_hacl=    |
+| OpenSSL_utility            | =make utility_openssl= |
+| tea                        | =make tea=             |
+| donna                      | =make donna=           |
+| libsodium_salsa20          | =make nacl_salsa20=    |
+| libsodium_chacha20         | =make nacl_chacha20=   |
+| libsodium_sha256           | =make nacl_sha256=     |
+| libsodium_sha512           | =make nacl_sha512=     |
+| Hacl*_chacha20             | =make hacl_chacha20=   |
+| Hacl*_curve25519           | =make hacl_curve25519= |
+| Hacl*_sha256               | =make hacl_sha256=     |
+| Hacl*_sha512               | =make hacl_sha512=     |
+| Bearssl_aes_ct             | =make aes_ct=          |
+| Bearssl_des_ct             | =make des_ct=          |
+| Bearssl_aes_big            | =make aes_big=         |
+| Bearssl_des_tab            | =make des_tab=         |
+| OpenSSL_tls-remove-padding | =make openssl_almeida= |
+|----------------------------+------------------------|
+
+Results can be found in ~"./__results__/[name of program]_[date].csv"~
+
+*** Preservation by compilers
+Run =binsec/rel= for multiple compiler versions:
+- ct_select :: go to ~src/ct-select~ and run =make analysis=
+- ct_sort :: go to ~src/ct-sort~ and run =make analysis=
+- hacl_utility :: go to ~src/hacl_utility~ and run =make analysis=
+- openssl_utility :: go to ~src/openssl_utility~ and run =make analysis=
+- tea :: go to ~src/tea~ and run =make analysis=
+
+*** Scalability
+To run all experiments for scalability, run =make scale_[name of the
+program]=.
+
+Results can be found in ~"./__results__/[name of program]_[date].csv"~
+
+** Using =run.py= to run other experiments
+Using the script =run.py=:
+#+BEGIN_SRC bash
+./run.py -d [dataset] -o [output_file] -e [experiment_to_run]
+#+END_SRC
+where =dataset= is the dataset you want to analyze as defined in
+=experiments.py= (e.g. ct-sort, tea_0).
+
+Experiment to run:
+- sc :: self-composition
+- relse :: standard relational symbolic execution
+- relse_unt :: standard relse + untainting
+- relse_unt_fp :: standard relse + untainting + fault-packing
+- relse_flyrow :: relse + flyrow
+- relse_flyrow_unt :: relse + flyrow + untainting
+- binsecrel :: relse + flyrow + untainting + fault-packing
+- se :: standard symbolic execution
+- se_postrow :: standard symbolic execution + read-over-write (not
+     on-the-fly but as a formula pre-processing)
+- se_flyrow :: standard symbolic execution + flyrow
+- relse_postrow :: standard relse + read-over-write (not on-the-fly
+     but as a formula pre-processing)
+- insecure :: get a verbose counterexample for insecure experiments
+- best :: best setup (same as binsecrel)
+- test :: output smt formulas in =/tmp/SMTDIR= for debugging.
