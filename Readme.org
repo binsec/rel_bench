@@ -2,6 +2,8 @@
 This repository contains the benchmarks used for the experimental
 evaluation in the [[https://binsec.github.io/assets/publications/papers/2020-sp.pdf][Binsec/Rel paper]].
 
+See https://github.com/binsec/Rel
+
 ** Files
 - Programs to analyze are located in =./src/[program_name]=,
 - The setup for individual programs can be found in =experiments.py=,
