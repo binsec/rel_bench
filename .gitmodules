@@ -1,0 +1,3 @@
+[submodule "src/secret-erasure/src/secret-erasure/safeclib"]
+	path = src/secret-erasure/src/secret-erasure/safeclib
+	url = git@github.com:rurban/safeclib.git

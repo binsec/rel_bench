@@ -44,7 +44,7 @@ DEF_FP = 'instr'
 DEF_DD = 1
 DEF_SOLVER = 'boolector'
 DEF_LEAKINFO = 'instr'  # {halt|instr|unique-leak}
-DEF_PRINTMODEL = False
+DEF_PRINTMODEL = True
 DEF_LOWDECL = False
 DEF_OPTIMS = False
 DEF_UNTAINTING = True  # Set untainting parameter
@@ -132,7 +132,7 @@ def __clear_folder(folder):
                 print(e)
 
 
-def __sse_params(exp, params):
+def __make_cmd(exp, params):
     prefix = E.Experiment.name(exp)
     name = PWD + E.Experiment.folder(exp) + '/' + E.Experiment.name(exp)
     if params.smtdir != "" and not os.path.isdir(params.smtdir):
@@ -142,8 +142,10 @@ def __sse_params(exp, params):
 
     __clear_folder(params.smtdir + "/binsec_sse")
     __clear_folder(params.trace)
+    highs = E.Experiment.high(exp)
 
-    cmd = ' -fml-solver-timeout ' + str(params.solver_timeout) + \
+    cmd = 'binsec -relse' + \
+          ' -fml-solver-timeout ' + str(params.solver_timeout) + \
           (' -fml-optim-all' if params.optims else '') + \
           ' -relse-timeout ' + str(params.timeout) + \
           ' -relse-debug-level ' + str(params.debug) + \
@@ -168,29 +170,18 @@ def __sse_params(exp, params):
            if params.trace != '' else '') + \
           ' -relse-store-type ' + params.store + \
           ' -relse-memory-type ' + params.memory + \
-          (' -relse-no-untainting ' if not params.untainting else '') + \
           ' -relse-property ' + params.prop + \
           ('' if E.Experiment.critical_func(exp) == ''
            else ' -relse-critical-func ' + E.Experiment.critical_func(exp)) + \
-          ' ' + name
-    return cmd
-
-
-def __make_cmd_sse(exp, params):
-    return 'binsec -relse ' + __sse_params(exp, params)
-
-
-def __make_cmd_relse(exp, params):
-    highs = E.Experiment.high(exp)
-    cmd = 'binsec -relse ' + \
+          (' -relse-no-canonical' if not params.canonical else '') + \
           (' -relse-high-var ' + highs if highs != '' else '') + \
           ' -relse-dedup ' + str(params.dd) + \
           ' -relse-fp ' + str(params.fp) + \
           (' -relse-leak-info ' + params.leak_info if params.leak_info != '' else '') + \
           (' -relse-print-model' if params.print_model else '') + \
-          (' -relse-no-canonical' if not params.canonical else '') + \
           (' -relse-low-decl' if params.low_decl else '') + \
-          __sse_params(exp, params)
+          (' -relse-no-untainting ' if not params.untainting else '') + \
+          ' ' + name
     return cmd
 
 
@@ -199,10 +190,7 @@ def run(exp, params, check):
     relse = (params.store != store_sse and params.store != store_sse_opt)
     check = check and relse
 
-    if relse:
-        cmd = __make_cmd_relse(exp, params)
-    else:
-        cmd = __make_cmd_sse(exp, params)
+    cmd = __make_cmd(exp, params)
 
     print("[__________RUNNING__________]\n")
     print(cmd)
@@ -243,6 +231,7 @@ def run_exp_with_params(exp, params, n):
 def exp_self_comp(exp, params, n):
     params.fp = 'instr'
     params.untainting = False
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_sc)
     run_exp_with_params(exp, params, n)
 
@@ -250,6 +239,7 @@ def exp_self_comp(exp, params, n):
 def exp_std_relse(exp, params, n):
     params.fp = 'instr'
     params.untainting = False
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_std_rel)
     run_exp_with_params(exp, params, n)
 
@@ -257,6 +247,7 @@ def exp_std_relse(exp, params, n):
 def exp_std_relse_unt(exp, params, n):
     params.fp = 'instr'
     params.untainting = True
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_std_rel)
     run_exp_with_params(exp, params, n)
 
@@ -264,6 +255,7 @@ def exp_std_relse_unt(exp, params, n):
 def exp_std_relse_unt_fp(exp, params, n):
     params.fp = 'block'
     params.untainting = True
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_std_rel)
     run_exp_with_params(exp, params, n)
 
@@ -271,6 +263,7 @@ def exp_std_relse_unt_fp(exp, params, n):
 def exp_brelse(exp, params, n):
     params.fp = 'instr'
     params.untainting = False
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_bin_rel)
     run_exp_with_params(exp, params, n)
 
@@ -278,6 +271,7 @@ def exp_brelse(exp, params, n):
 def exp_brelse_unt(exp, params, n):
     params.fp = 'instr'
     params.untainting = True
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_bin_rel)
     run_exp_with_params(exp, params, n)
 
@@ -285,6 +279,7 @@ def exp_brelse_unt(exp, params, n):
 def exp_brelse_unt_fp(exp, params, n):
     params.fp = 'block'
     params.untainting = True
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_bin_rel)
     run_exp_with_params(exp, params, n)
 
@@ -300,6 +295,7 @@ def exp_std_relse_postrow(exp, params, n):
 def exp_sse(exp, params, n):
     params.untainting = False
     params.fp = 'never'
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_sse)
     run_exp_with_params(exp, params, n)
 
@@ -307,14 +303,15 @@ def exp_sse(exp, params, n):
 def exp_sse_postrow(exp, params, n):
     params.untainting = False
     params.fp = 'never'
-    params.set_store(store_sse)
     params.optims = True        # Benjamin's ROW optim
+    params.set_store(store_sse)
     run_exp_with_params(exp, params, n)
 
 # SSE + FlyRow
 def exp_sse_flyrow(exp, params, n):
     params.untainting = False
     params.fp = 'never'
+    params.optims = False        # Benjamin's ROW optim
     params.set_store(store_sse_opt)
     run_exp_with_params(exp, params, n)
 
@@ -427,6 +424,8 @@ def main():
                         help="Untainting parameter (0 to unset)")
     parser.add_argument('-store', action='store', nargs="?", type=str,
                         help="The type of store { sse | sse-opt | sc | std-rel | bin-rel }")
+    parser.add_argument('-prop', action='store', nargs="?", type=str,
+                        help="Property to check { secret-erasure | ct }")
 
     args = parser.parse_args()
 
@@ -440,6 +439,7 @@ def main():
     params.depth = DEF_DEPTH if args.depth is None else args.depth
     params.paths = DEF_PATHS if args.paths is None else args.paths
     params.set_store(DEF_STORE if args.store is None else args.store)
+    params.prop = DEF_PROP if args.prop is None else args.prop
         
     print("[__________BEGIN__________]")
     if args.test:

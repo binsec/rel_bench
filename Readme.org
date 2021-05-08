@@ -1,15 +1,17 @@
 * Binsec/Rel Benchmark
-This repository contains the benchmarks used for the experimental
-evaluation in the [[https://binsec.github.io/assets/publications/papers/2020-sp.pdf][Binsec/Rel paper]].
+This repository contains the benchmarks used for the experimental evaluation of
+the [[https://github.com/binsec/Rel][Binsec/Rel tool]].
 
-See https://github.com/binsec/Rel
+This Readme details experiments for constant-time analysis.
+For results on secret-erasure, see the [[src/secret-erasure/Readme.org][Secret-erasure Readme]].
+
 
 ** Files
-- Programs to analyze are located in =./src/[program_name]=,
+- Programs to analyze are located in =./src/ct/[program_name]=,
 - The setup for individual programs can be found in =experiments.py=,
 - The script to run experiments is =run.py=,
 - The =Makefile= contains presets to run =Binsec/Rel= on programs in
-  =./src= with different experimental setups.
+  =./src/ct= with different experimental setups.
 
 Run =run.py --help= for help.
 
@@ -17,7 +19,7 @@ Run =run.py --help= for help.
 First, make sure that ~Binsec/Rel~ is in you path.
 
 ** Running the tests
-Toy examples to test the tool can be found in =src/toys=. To run
+Toy examples to test the tool can be found in =src/ct/toys=. To run
 Binsec/Rel on these toy examples, just run =make tests=.
 
 This will run experiments for the toy examples and check that the
@@ -95,3 +97,8 @@ Experiment to run:
 - insecure :: get a verbose counterexample for insecure experiments
 - best :: best setup (same as binsecrel)
 - test :: output smt formulas in =/tmp/SMTDIR= for debugging.
+
+
+** Generate latex tables
+Run =python3 stats.py -bv -bf -sc -sse= to generate latex tables presented in
+the paper.

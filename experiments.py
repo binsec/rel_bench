@@ -105,7 +105,7 @@ def make_compiler_expes(directory, file_name):
 ###########
 # Toys New
 ###########
-directory = 'src/toys'
+directory = 'src/ct/toys'
 conditional_insec = Experiment(directory, 'conditional_insecure_O0', Status.FALSE)
 conditional_sec = Experiment(directory, 'conditional_secure_O0', Status.TRUE)
 function_call_insec = Experiment(directory, 'function_call_insecure_O0', Status.FALSE)
@@ -126,7 +126,7 @@ toys = [conditional_insec, conditional_sec, function_call_insec,
 ##########
 # TEA New
 ##########
-directory = 'src/tea'
+directory = 'src/ct/tea'
 tea_enc = Experiment(directory, 'tea_encrypt_O0', Status.TRUE)
 tea_dec_0 = Experiment(directory, 'tea_decrypt_O0', Status.TRUE)
 tea_dec_1 = Experiment(directory, 'tea_decrypt_O1', Status.TRUE)
@@ -139,7 +139,7 @@ teas = [tea_enc, tea_dec_0, tea_dec_1, tea_dec_2, tea_dec_3, tea_dec_f]
 ############
 # Donna new
 ############
-directory = 'src/donna'
+directory = 'src/ct/donna'
 donna_0 = Experiment(directory, 'donna_O0', Status.TRUE)
 donna_1 = Experiment(directory, 'donna_O1', Status.TRUE)
 donna_2 = Experiment(directory, 'donna_O2', Status.TRUE)
@@ -151,7 +151,7 @@ donnas = [donna_0, donna_1, donna_2, donna_3, donna_f]
 #########
 # HACL*
 #########
-directory = 'src/hacl'
+directory = 'src/ct/hacl'
 hacl_chacha20 = Experiment(directory, 'chacha20', Status.TRUE)
 hacl_chacha20.set_memory_file("chacha20.mem")
 hacl_curve25519 = Experiment(directory, 'curve25519', Status.TRUE)
@@ -166,7 +166,7 @@ hacls = [hacl_chacha20, hacl_curve25519, hacl_sha256, hacl_sha512]
 #########
 # ct-select
 #########
-directory = 'src/ct-select'
+directory = 'src/ct/ct-select'
 # select v1
 ct_select_v1_cl30_0 = Experiment(directory, 'ct_select_v1_cl30_O0', Status.TRUE)
 ct_select_v1_cl30_3 = Experiment(directory, 'ct_select_v1_cl30_O3', Status.FALSE)
@@ -215,7 +215,7 @@ ct_select = ct_select_v1 + ct_select_v2 + ct_select_v3 + ct_select_v4 + ct_selec
 #########
 # ct-sort
 #########
-directory = 'src/ct-sort'
+directory = 'src/ct/ct-sort'
 # sort
 sort_cl30_0 = Experiment(directory, 'sort_cl30_O0', Status.TRUE)
 sort_cl30_3 = Experiment(directory, 'sort_cl30_O3', Status.FALSE)
@@ -264,7 +264,7 @@ ct_sort = [sort_cl7_0,  sort_multiplex_cl7_0,  sort_negative_cl7_0,
 #############
 # Utility-hacl
 #############
-directory = 'src/hacl_utility'
+directory = 'src/ct/hacl_utility'
 ct_cmp_hacl = make_compiler_expes(directory, 'cmp_bytes')
 uint16_gte_mask = make_compiler_expes(directory, 'uint16_gte_mask')
 uint8_eq_mask = make_compiler_expes(directory, 'uint8_eq_mask')
@@ -284,7 +284,7 @@ hacl_utility = uint16_gte_mask + uint8_eq_mask + uint32_eq_mask + \
 ###################
 # BearSSL aes & des
 ###################
-directory = 'src/bearssl'
+directory = 'src/ct/bearssl'
 aes_big = Experiment(directory, 'aes_big', Status.FALSE)
 aes_big.set_memory_file("memory_aes_big.txt")
 aes_ct = Experiment(directory, 'aes_ct', Status.TRUE)
@@ -297,7 +297,7 @@ bearssl = [aes_big, aes_ct, des_tab, des_ct]
 ###################
 # Libsodium
 ###################
-directory = 'src/libsodium'
+directory = 'src/ct/libsodium'
 nacl_chacha20 = Experiment(directory, 'chacha20', Status.TRUE)
 nacl_salsa20 = Experiment(directory, 'salsa20', Status.TRUE)
 nacl_sha256 = Experiment(directory, 'sha256', Status.TRUE)
@@ -308,7 +308,7 @@ libsodium = [nacl_chacha20, nacl_salsa20, nacl_sha256, nacl_sha512]
 #######################
 # Openssl - almeida
 ######################
-directory = 'src/openssl_almeida'
+directory = 'src/ct/openssl_almeida'
 tls1_cbc_remove_padding_patch = Experiment(directory, 'tls1_cbc_remove_padding_patch', Status.TRUE)
 tls1_cbc_remove_padding_lucky13 = Experiment(directory, 'tls1_cbc_remove_padding_lucky13', Status.FALSE)
 tls1_cbc_remove_padding_lucky13.set_memory_file("tls1_cbc_remove_padding_lucky13.mem")
@@ -319,7 +319,7 @@ openssl_almeida = tls1_cbc_remove_padding
 ######################
 # Openssl - Utility
 ######################
-directory = 'src/openssl_utility'
+directory = 'src/ct/openssl_utility'
 openssl_ct_eq = make_compiler_expes(directory, 'ct_eq')
 openssl_ct_eq_8 = make_compiler_expes(directory, 'ct_eq_8')
 openssl_ct_eq_int = make_compiler_expes(directory, 'ct_eq_int')
@@ -339,6 +339,18 @@ openssl_utility = openssl_ct_eq_8 + openssl_ct_eq_int + openssl_ct_is_zero_8 + \
                   openssl_ct_ge + openssl_ct_lt_8 + openssl_ct_select_8
 
 
+######################
+# Secret erasure
+######################
+directory = 'src/secret-erasure'
+secret_erasure_0 = Experiment(directory, './bin/secret-erasure_O0', Status.TRUE)
+secret_erasure_1 = Experiment(directory, './bin/secret-erasure_O1', Status.TRUE)
+secret_erasure_2 = Experiment(directory, './bin/secret-erasure_O2', Status.FALSE)
+secret_erasure_3 = Experiment(directory, './bin/secret-erasure_O3', Status.FALSE)
+secret_erasure_f = Experiment(directory, './bin/secret-erasure_Of', Status.FALSE)
+secret_erasure_all = [secret_erasure_0, secret_erasure_1,
+                      secret_erasure_2, secret_erasure_3,
+                      secret_erasure_f]
 
 data_switcher = {
     # Toys
@@ -380,4 +392,7 @@ data_switcher = {
     "tls1_cbc_remove_padding_patch": [tls1_cbc_remove_padding_patch],
     "tls1_cbc_remove_padding_lucky13": [tls1_cbc_remove_padding_lucky13],
     "openssl_almeida": openssl_almeida,
+    # Secret erasure
+    # "secret-erasure": [secret_erasure_2],
+    "secret-erasure": secret_erasure_all,
 }
