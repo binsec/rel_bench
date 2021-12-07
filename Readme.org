@@ -4,8 +4,8 @@ the [[https://github.com/binsec/Rel][Binsec/Rel tool]].
 
 This Readme details the experiments for scalability on constant-time analysis.
 For results on the preservation of constant-time and secret-erasure under multiple
-compiler setups, see the [[properties_vs_compilers/ct/Readme.org][Constant-time preservation Readme]]
-and the [[properties_vs_compilers/secret-erasure/Readme.org][Secret-erasure preservation Readme]].
+compiler setups, see [[properties_vs_compilers/ct][constant-time preservation by compilers]]
+and [[properties_vs_compilers/secret-erasure][secret-erasure preservation by compilers]].
 
 ** Prerequisite
 Set up python virtual environment to run python scripts:
