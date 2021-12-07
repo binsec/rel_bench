@@ -2,8 +2,10 @@
 This repository contains the benchmarks used for the experimental evaluation of
 the [[https://github.com/binsec/Rel][Binsec/Rel tool]].
 
-This Readme details experiments for constant-time analysis.
-For results on secret-erasure, see the [[src/secret-erasure/Readme.org][Secret-erasure Readme]].
+This Readme details the experiments for scalability on constant-time analysis.
+For results on the preservation of constant-time and secret-erasure under multiple
+compiler setups, see the [[properties_vs_compilers/ct/Readme.org][Constant-time preservation Readme]]
+and the [[properties_vs_compilers/secret-erasure/Readme.org][Secret-erasure preservation Readme]].
 
 ** Prerequisite
 Set up python virtual environment to run python scripts:
@@ -19,8 +21,8 @@ pip install -r requirements.txt
 - The script to run experiments is =run.py=,
 - The =Makefile= contains presets to run =Binsec/Rel= on programs in
   =./src/ct= with different experimental setups.
-- The folder =./properties_vs_compilers= contains our experimental study on
-  [constant-time](./) and secret-erasure preservation under multiple compiler setups.
+- The folder =./properties_vs_compilers= contains our experimental study
+on constant-time and secret-erasure preservation under multiple compiler setups.
 
 Run =run.py --help= for help.
 
