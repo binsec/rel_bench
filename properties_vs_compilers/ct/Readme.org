@@ -1,0 +1,48 @@
+#+TITLE: Automatically check the preservation of constant-time by compilers
+
+Framework to automatically check the *preservation of constant-time* for
+multiple /small constant-time programs/, by /multiple compilers/ and
+/optimization level/.
+
+We tried to make our experimental evaluation /fully reproducible/, including the
+whole compilation process. Our setup relies on [[https://nixos.wiki/wiki/Development_environment_with_nix-shell][Nix virtual environments]] in order
+to compile the programs.
+
+This framework currently analyzes 34 small programs (see [[file:src][src]]),
+10 compilers (clang versions 3.0, 3.9, 7.1.0, 9.0.1, 11.0.1, gcc versions 5.4.0,
+6.2.0, 7.2.0, 8.3.0 and 10.2.0), and arm-linux-gnueabi-gcc-10.3.0; with several
+optimization levels (~-O0~, ~-O1~, ~-O2~, ~-O3~); and selectively disabling
+clang ~x86-cmov-converter~ and gcc ~if-conversion~ passes; which make a total of
+2006 configurations.
+
+* Structure of the project
+Important files are:
+- ~src~ :: source of the constant-time programs that we analyze;
+- ~Makefile~ :: compile a program with multiple optimization levels;
+- ~compile.sh~ :: run the ~Makefile~ with multiple compilers (uses ~nix-shell~);
+- ~analyze.sh~ :: run ~binsec~ on the resulting binary files to check if the constant-time property is preserved.
+
+** Requirements
+If you want to run the code on you machine, you need to meet the
+following requirements.
+
+The script ~compile.sh~ uses [[https://nixos.wiki/wiki/Development_environment_with_nix-shell][Nix virtual environments]] to install compilers and
+compile scrubbing functions in a reproducible and portable way. See the
+[[https://nixos.org/manual/nix/stable/#chap-installation][instructions to install Nix]].
+
+Two version of ~clang~ (3.0 and 3.9) were manually installed. You can download
+them at https://releases.llvm.org/download.html. If you want to be able to
+compile using these versions, you should have ~clang-3.3~ and ~clang-3.9~ in you
+path. The ~arm~ compiler (~arm-linux-gnueabi-gcc-10 (Ubuntu 10.3.0-1ubuntu1)
+10.3.0~) was also manually installed.
+
+The script ~analyze.sh~ requires [[https://github.com/binsec/rel][Binsec/Rel]] in your path.
+
+* Reproduce experiments
+- The results of the paper on optimizations levels (~O0, , O0+, O1, O2, O3,
+  O3-~) can be reproduced using the command ~./analyze.sh all~. This command
+  runs ~binsec~ on all the compiled binaries and outputs if the program is
+  ~SECURE~ our ~INSECURE~.
+
+- You can also recompile all binaries analyzed in the paper with ~./compile.sh
+  all~. This command requires Nix.

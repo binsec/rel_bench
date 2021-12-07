@@ -1,0 +1,100 @@
+binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O2_clang_9.0.1     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O2_clang_9.0.1  -relse-debug-level 0
+[relse:warning] No entrypoint: starting from main.
+[relse:warning] Cannot find relse configuration file memory.txt
+[relse:warning] [Stub] Symbol bzero not found
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d84c, 0) :
+               if (ZF<1> | (SF<1> != OF<1>)) goto (0804d850, 0) else goto 1
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d87b, 0) :
+               if (ZF<1> | (SF<1> != OF<1>)) goto (0804d87f, 0) else goto 1
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d8a8, 0) :
+               if (ZF<1> | (SF<1> != OF<1>)) goto (0804d8ac, 0) else goto 1
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d8b0, 0) :
+               if (SF<1> != OF<1>) goto (0804d8b4, 0) else goto 1
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d887, 0) :
+               if (SF<1> != OF<1>) goto (0804d88b, 0) else goto 1
+[relse:result] [Insecurity][Violation] Insecure jump
+[relse:result] Address (0804d859, 0) :
+               if (SF<1> != OF<1>) goto (0804d85d, 0) else goto 1
+[relse:result] [Exploration] End of the RelSE
+[relse:info] RelSE stats:
+                           Total queries: 
+                                            SAT:	50
+                                            UNSAT:	23
+                                            Other:	0
+                                            Total:	73
+                                            Time:	2.210069
+                                            Time avg:	0.030275
+                           Exploration queries: 
+                                                  SAT:	44
+                                                  UNSAT:	20
+                                                  Other:	0
+                                                  Total:	64
+                                                  Time:	1.889768
+                                                  Time avg:	0.029528
+                           CF Insecurity queries: 
+                                                    SAT:	6
+                                                    UNSAT:	3
+                                                    Other:	0
+                                                    Total:	9
+                                                    Time:	0.320301
+                                                    Time avg:	0.035589
+                           Mem Insecurity queries: 
+                                                     SAT:	0
+                                                     UNSAT:	0
+                                                     Other:	0
+                                                     Total:	0
+                                                     Time:	0.000000
+                                                     Time avg:	-nan
+                           Term Insecurity queries: 
+                                                      SAT:	0
+                                                      UNSAT:	0
+                                                      Other:	0
+                                                      Total:	0
+                                                      Time:	0.000000
+                                                      Time avg:	-nan
+                           Insecurity queries: 
+                                                 SAT:	6
+                                                 UNSAT:	3
+                                                 Other:	0
+                                                 Total:	9
+                                                 Time:	0.320301
+                                                 Time avg:	0.035589
+                           Model queries: 
+                                            SAT:	0
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	0
+                                            Time:	0.000000
+                                            Time avg:	-nan
+                           Enum queries: 
+                                           SAT:	0
+                                           UNSAT:	0
+                                           Other:	0
+                                           Total:	0
+                                           Time:	0.000000
+                                           Time avg:	-nan
+                           Total queries: 
+                                            SAT:	50
+                                            UNSAT:	23
+                                            Other:	0
+                                            Total:	73
+                                            Time:	2.210069
+                                            Time avg:	0.030275
+                           Query size avg/max:	2024.287671 / 2249
+                           Checks done/spared:	32 / 311
+                           Coverage: 
+                                       Paths:		13
+                                       Conditionals:	32
+                                       Forks:	32
+                                       DBA Instructions:	1369
+                                       x86 Instructions:	442
+                           Violations:		6
+                           Status:	None
+                           Result:	Insecure
+                           Elapsed time:	3.012070
+ 

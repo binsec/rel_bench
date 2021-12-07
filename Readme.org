@@ -19,6 +19,8 @@ pip install -r requirements.txt
 - The script to run experiments is =run.py=,
 - The =Makefile= contains presets to run =Binsec/Rel= on programs in
   =./src/ct= with different experimental setups.
+- The folder =./properties_vs_compilers= contains our experimental study on
+  [constant-time](./) and secret-erasure preservation under multiple compiler setups.
 
 Run =run.py --help= for help.
 
@@ -64,14 +66,6 @@ Run the command corresponding to the file you want to analyze:
 |----------------------------+------------------------|
 
 Results can be found in ~"./__results__/[name of program]_[date].csv"~
-
-*** Preservation by compilers
-Run =binsec/rel= for multiple compiler versions:
-- ct_select :: go to ~src/ct-select~ and run =make analysis=
-- ct_sort :: go to ~src/ct-sort~ and run =make analysis=
-- hacl_utility :: go to ~src/hacl_utility~ and run =make analysis=
-- openssl_utility :: go to ~src/openssl_utility~ and run =make analysis=
-- tea :: go to ~src/tea~ and run =make analysis=
 
 *** Scalability
 To run all experiments for scalability, run =make scale_[name of the

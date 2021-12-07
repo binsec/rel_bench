@@ -1,0 +1,83 @@
+binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O1_arm-linux-gnueabi-gcc_10.3     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O1_arm-linux-gnueabi-gcc_10.3  -relse-debug-level 0
+[relse:warning] No entrypoint: starting from main.
+[relse:warning] Cannot find relse configuration file memory.txt
+[relse:warning] [Stub] Symbol memset_ifunc not found
+[relse:warning] [Stub] Symbol bzero not found
+[relse:result] [Exploration] End of the RelSE
+[relse:info] RelSE stats:
+                           Total queries: 
+                                            SAT:	52
+                                            UNSAT:	40
+                                            Other:	0
+                                            Total:	92
+                                            Time:	117.455149
+                                            Time avg:	1.276686
+                           Exploration queries: 
+                                                  SAT:	52
+                                                  UNSAT:	40
+                                                  Other:	0
+                                                  Total:	92
+                                                  Time:	117.455149
+                                                  Time avg:	1.276686
+                           CF Insecurity queries: 
+                                                    SAT:	0
+                                                    UNSAT:	0
+                                                    Other:	0
+                                                    Total:	0
+                                                    Time:	0.000000
+                                                    Time avg:	-nan
+                           Mem Insecurity queries: 
+                                                     SAT:	0
+                                                     UNSAT:	0
+                                                     Other:	0
+                                                     Total:	0
+                                                     Time:	0.000000
+                                                     Time avg:	-nan
+                           Term Insecurity queries: 
+                                                      SAT:	0
+                                                      UNSAT:	0
+                                                      Other:	0
+                                                      Total:	0
+                                                      Time:	0.000000
+                                                      Time avg:	-nan
+                           Insecurity queries: 
+                                                 SAT:	0
+                                                 UNSAT:	0
+                                                 Other:	0
+                                                 Total:	0
+                                                 Time:	0.000000
+                                                 Time avg:	-nan
+                           Model queries: 
+                                            SAT:	0
+                                            UNSAT:	0
+                                            Other:	0
+                                            Total:	0
+                                            Time:	0.000000
+                                            Time avg:	-nan
+                           Enum queries: 
+                                           SAT:	0
+                                           UNSAT:	0
+                                           Other:	0
+                                           Total:	0
+                                           Time:	0.000000
+                                           Time avg:	-nan
+                           Total queries: 
+                                            SAT:	52
+                                            UNSAT:	40
+                                            Other:	0
+                                            Total:	92
+                                            Time:	117.455149
+                                            Time avg:	1.276686
+                           Query size avg/max:	2122.543478 / 2490
+                           Checks done/spared:	0 / 152
+                           Coverage: 
+                                       Paths:		7
+                                       Conditionals:	0
+                                       Forks:	46
+                                       DBA Instructions:	989
+                                       x86 Instructions:	307
+                           Violations:		0
+                           Status:	None
+                           Result:	Secure
+                           Elapsed time:	119.995008
+ 

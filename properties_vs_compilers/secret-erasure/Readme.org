@@ -1,0 +1,140 @@
+#+TITLE: Automatically check the preservation of secret-erasure by compilers
+
+Framework to automatically check the *preservation of secret-erasure* for
+multiple /scrubbing functions/, by /multiple compilers/ and /optimization
+level/.
+
+We tried to make our experimental evaluation /fully reproducible/, including the
+whole compilation process. Our setup relies on [[https://nixos.wiki/wiki/Development_environment_with_nix-shell][Nix virtual environments]] in order
+to compile the program ~secret_erasure.c~ and its libraries (i.e. ~safelibc~)
+with multiple compilers.
+
+This framework currently analyzes 17 scrubbing functions (see [[file:secret-erasure.c][secret-erasure.c]]),
+10 compilers (clang versions 3.0, 3.9, 7.1.0, 9.0.1, 11.0.1 and gcc versions
+5.4.0, 6.2.0, 7.2.0, 8.3.0 and 10.2.0), with 4 optimization levels (-O0, -O1,
+-O2 and -O3); and disabling ~-dse~ optimizations; which make a total of 1156
+configurations.
+
+* Structure of the project
+Important files are:
+- ~secret_erasure.c~ :: defines multiple scrubbing functions.
+- ~Makefile~ :: compile ~secret-erasure.c~ for multiple implementations of the
+  scrubbing functions, and with multiple optimization levels.
+- ~compile.sh~ :: Runs the ~Makefile~ with multiple compilers (uses ~nix-shell~).
+- ~analyze.sh~ :: Runs ~binsec~ on the resulting binary files to check if the
+  secret-erasure property is preserved.
+
+** Docker image
+A docker image containing everything already setup is available TODO.
+
+** Requirements
+Alternatively, if you want to run the code on you machine, you need to meet the
+following requirements.
+
+The script ~compile.sh~ uses [[https://nixos.wiki/wiki/Development_environment_with_nix-shell][Nix virtual environments]] to install compilers and
+compile scrubbing functions in a reproducible and portable way. See the
+[[https://nixos.org/manual/nix/stable/#chap-installation][instructions to install Nix]].
+
+Two version of ~clang~ (3.0 and 3.9) were manually installed. You can download
+them at https://releases.llvm.org/download.html. If you want to be able to
+compile using these versions, you should have ~clang-3.3~ and ~clang-3.9~ in you
+path.
+
+The script ~analyze.sh~ requires [[https://github.com/binsec/rel][Binsec/Rel]] in your path.
+
+* Reproduce experiments
+- The results of the papaper on optimizations levels (~O0, O1, O2, O3~) can be
+  reproduced using the command ~./analyze.sh all-opt~. This command runs
+  ~binsec~ on all the compiled binaries and outputs if the program is ~SECURE~
+  our ~INSECURE~. This command takes around 109 seconds to run on a HP-EliteBook
+  745 G6 with AMD Ryzen 7 PRO 3700U w/ Radeon Vega Mobile Gfx and 32GB of RAM.
+
+  Results of ~$ hyperfine "./analyze.sh all-opt"~:
+  #+begin_src bash
+  Benchmark 1: ./analyze.sh all-opt
+    Time (mean ± σ):     108.675 s ±  0.409 s    [User: 106.768 s, System: 13.055 s]
+    Range (min … max):   108.092 s … 109.368 s    10 runs
+  #+end_src
+
+- The results of the paper on compiler optimizations (~-dse~, ~-tree-dse~,
+  etc.), can be reproduced with the command ~./analyze.sh all-no-dse~. This
+  command takes around 73 seconds to run.
+
+  Results of ~$ hyperfine "./analyze.sh all-no-dse"~:
+  #+begin_src bash
+  Benchmark 1: ./analyze.sh all-no-dse
+    Time (mean ± σ):     72.953 s ±  0.610 s    [User: 67.968 s, System: 8.877 s]
+    Range (min … max):   72.305 s … 74.585 s    10 runs
+  #+end_src
+
+- You can also recompile all binaries analyzed in the paper with ~./compile.sh
+  all~. This command requires Nix installed and takes around 1m30 to run if all
+  nix-env compilers are already in cache (otherwise it takes much longer because
+  it need to install the compilers first).
+
+* Modify the framework
+** Add new scrubbing functions
+1) Scrubbing functions are defined in ~secret-erasure. c~. To define a new
+scrubbing function, a user must redefine the ~scrub~ function guarded by a
+preprocessor directive. For instance, to simply use the ~memset~ function from
+the ~libc~:
+#+begin_src c
+/* The scrubbing function must follow this declaration: */
+void scrub(char *buff, size_t size);
+
+/* Definition of the scrubbing function using memset. The preprocessor directive
+   is used to chose the implementation at compile time */
+#if MEMSET
+void scrub(char *buff, size_t size) {
+  memset(buff, 0, size);
+}
+#endif
+#+end_src
+
+2) To compile the scrubbing function, add a rule to the ~Makefile~, for instance:
+#+begin_src bash
+memset:
+	@$(call compile,MEMSET) # compile the programm using the definition
+                            # corresponding to MEMSET
+#+end_src
+Then, you can compile it using ~./compile.sh <rulename>~ (here ~./compile.sh
+memset~).
+
+3) Finally, to analyze it, you can run ~analyze.sh function MEMSET~.
+To include it in the script, you can also update the variable,
+~SCRUBBING_FUNTIONS~ in ~analyze.sh~.
+
+
+** Add a new compiler
+Management of the different compilers is handled via the script ~compile.sh~.
+
+1) You can add a compiler by adapting one of the scripts ~compiler-version.nix~.
+For instance, in file [[file:clang-11.0.1.nix][clang-11.0.1.nix]], change ~llvmPackages_11~ to
+~llvmPackages_10~ to get ~clang-10~. If you want to stay away from nix, you can
+also add locally installed compilers (see ~clang-3.0~ in ~compile.sh~).
+
+Additional ressources:
+- For clang, see https://nixos.wiki/wiki/Using_Clang_instead_of_GCC and find
+  ~llvmPackages_<number>~ in [[https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L9713][Nix packages]].
+- For gcc, find ~gcc<number>Stdenv~ in [[https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/all-packages.nix#L9713][Nix packages]].
+- You can also look at [[https://4shells.com/nixdb/pkg/clang/7.1.0][clang]] and [[ https://4shells.com/nixdb/pkg/gcc/10.2.0][gcc]] wrappers.
+
+2) Ensure that everything works by running ~./compile.sh cc-version~ and check
+   that it matches the expected compiler version.
+
+3) Compile all scrubbing functions with the command ~./compile.sh all~ (this
+   will recompile for all compilers so comment the other compilers if you just
+   want to run our newly added version). You might also want to recompile
+   ~safeclib~ with ~./compile safeclib~ (see section Safeclib below).
+
+4) Finally, you can get analyze the results of you new compiler with
+   ~./analyze.sh compiler <compiler_version>~ where ~<compiler_version>~ is the
+   name and version of you compiler ~e.g. gcc_10.2.0~.
+
+*** Safeclib
+The scrubbing function using ~memset_s~ scrubbing function depends on the
+[[https://github.com/rurban/safeclib/blob/master/src/mem/memset_s.c][safeclib]] library. The different versions of the library, compiled with different
+compilers, are available located in ~./safeclib_bin/<compiler>/libsafec-3.6.0.a~
+where ~<compiler>~ is the name and version of the compiler.
+
+To *recompile* safeclib using nix, run ~./compile safeclib~.
