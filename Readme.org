@@ -5,6 +5,13 @@ the [[https://github.com/binsec/Rel][Binsec/Rel tool]].
 This Readme details experiments for constant-time analysis.
 For results on secret-erasure, see the [[src/secret-erasure/Readme.org][Secret-erasure Readme]].
 
+** Prerequisite
+Set up python virtual environment to run python scripts:
+#+begin_src
+python3 -m venv ./venv
+source venv/bin/activate
+pip install -r requirements.txt
+#+end_src
 
 ** Files
 - Programs to analyze are located in =./src/ct/[program_name]=,
