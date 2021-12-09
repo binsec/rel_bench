@@ -112,11 +112,19 @@ unit_tests() {
     check "./ct-select/ct_select_v1_O3-cmov_clang_7.1.0" "INSECURE"
 
     check "./ct-sort/sort_O0_gcc_8.3.0" "INSECURE"
-    check "./ct-sort/sort_O3_gcc_8.3.0" "INSECURE"
+    check "./ct-sort/sort_O3_gcc_8.3.0" "SECURE"
     check "./ct-sort/sort_O0-cmov_gcc_8.3.0" "INSECURE"
-    check "./ct-sort/sort_O0_clang_7.1.0" "INSECURE"
+    check "./ct-sort/sort_O3-cmov_gcc_8.3.0" "SECURE"
+    check "./ct-sort/sort_O0_clang_7.1.0" "SECURE"
     check "./ct-sort/sort_O3_clang_7.1.0" "SECURE"
     check "./ct-sort/sort_O3-cmov_clang_7.1.0" "SECURE"
+
+    check "./ct-select/naive_select_O3-cmov_clang_7.1.0" "INSECURE"
+    check "./ct-select/naive_select_O3-cmov_gcc_8.3.0" "INSECURE"
+    check "./ct-select/naive_select_O0_arm-linux-gnueabi-gcc_10.3" "INSECURE"
+    check "./ct-select/naive_select_O0-cmov_arm-linux-gnueabi-gcc_10.3" "INSECURE"
+    check "./ct-select/naive_select_O3_arm-linux-gnueabi-gcc_10.3" "SECURE"
+    check "./ct-select/naive_select_O3-cmov_arm-linux-gnueabi-gcc_10.3" "INSECURE"
 
     printf "\n Unit tests passed !\n\n"
 }
