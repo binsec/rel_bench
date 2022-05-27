@@ -16,11 +16,11 @@ pip install -r requirements.txt
 #+end_src
 
 ** Files
-- Programs to analyze are located in =./src/ct/[program_name]=,
+- Programs to analyze are located in =./src/[program_name]=,
 - The setup for individual programs can be found in =experiments.py=,
 - The script to run experiments is =run.py=,
 - The =Makefile= contains presets to run =Binsec/Rel= on programs in
-  =./src/ct= with different experimental setups.
+  =./src= with different experimental setups.
 - The folder =./properties_vs_compilers= contains our experimental study
 on constant-time and secret-erasure preservation under multiple compiler setups.
 
@@ -30,7 +30,7 @@ Run =run.py --help= for help.
 First, make sure that ~Binsec/Rel~ is in you path.
 
 ** Running the tests
-Toy examples to test the tool can be found in =src/ct/toys=. To run
+Toy examples to test the tool can be found in =src/toys=. To run
 Binsec/Rel on these toy examples, just run =make tests=.
 
 This will run experiments for the toy examples and check that the
