@@ -1,4 +1,4 @@
-binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O2_arm-linux-gnueabi-gcc_10.3     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O2_arm-linux-gnueabi-gcc_10.3  -relse-debug-level 0
+binsec-rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O2_arm-linux-gnueabi-gcc_10.3     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O2_arm-linux-gnueabi-gcc_10.3  -relse-debug-level 0
 [relse:warning] No entrypoint: starting from main.
 [relse:warning] Cannot find relse configuration file memory.txt
 [relse:warning] [Stub] Symbol memset_ifunc not found
@@ -10,15 +10,15 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                                             UNSAT:	40
                                             Other:	0
                                             Total:	92
-                                            Time:	140.358062
-                                            Time avg:	1.525631
+                                            Time:	148.993171
+                                            Time avg:	1.619491
                            Exploration queries: 
                                                   SAT:	52
                                                   UNSAT:	40
                                                   Other:	0
                                                   Total:	92
-                                                  Time:	140.358062
-                                                  Time avg:	1.525631
+                                                  Time:	148.993171
+                                                  Time avg:	1.619491
                            CF Insecurity queries: 
                                                     SAT:	0
                                                     UNSAT:	0
@@ -66,8 +66,8 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                                             UNSAT:	40
                                             Other:	0
                                             Total:	92
-                                            Time:	140.358062
-                                            Time avg:	1.525631
+                                            Time:	148.993171
+                                            Time avg:	1.619491
                            Query size avg/max:	1914.500000 / 2197
                            Checks done/spared:	0 / 105
                            Coverage: 
@@ -79,5 +79,5 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                            Violations:		0
                            Status:	None
                            Result:	Secure
-                           Elapsed time:	142.451130
+                           Elapsed time:	150.244124
  

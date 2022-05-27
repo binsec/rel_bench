@@ -1,4 +1,4 @@
-binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O0_arm-linux-gnueabi-gcc_10.3     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O0_arm-linux-gnueabi-gcc_10.3  -relse-debug-level 0
+binsec-rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse-memory memory.txt -relse-paths 0 -sse-load-ro-sections     -sse-load-sections .got.plt,.data,.plt,.bss -relse-stat-prefix ct-sort/sort_O0_arm-linux-gnueabi-gcc_10.3     -fml-solver boolector -relse-store-type rel     -relse-memory-type row-map -relse-property ct -relse-dedup 1     -relse-fp instr -relse-leak-info instr bin/ct-sort/sort_O0_arm-linux-gnueabi-gcc_10.3  -relse-debug-level 0
 [relse:warning] No entrypoint: starting from main.
 [relse:warning] Cannot find relse configuration file memory.txt
 [relse:warning] [Stub] Symbol memset_ifunc not found
@@ -12,22 +12,22 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                                             UNSAT:	27
                                             Other:	0
                                             Total:	67
-                                            Time:	85.972490
-                                            Time avg:	1.283171
+                                            Time:	91.082106
+                                            Time avg:	1.359434
                            Exploration queries: 
                                                   SAT:	39
                                                   UNSAT:	27
                                                   Other:	0
                                                   Total:	66
-                                                  Time:	83.328688
-                                                  Time avg:	1.262556
+                                                  Time:	88.347533
+                                                  Time avg:	1.338599
                            CF Insecurity queries: 
                                                     SAT:	1
                                                     UNSAT:	0
                                                     Other:	0
                                                     Total:	1
-                                                    Time:	2.643802
-                                                    Time avg:	2.643802
+                                                    Time:	2.734573
+                                                    Time avg:	2.734573
                            Mem Insecurity queries: 
                                                      SAT:	0
                                                      UNSAT:	0
@@ -47,8 +47,8 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                                                  UNSAT:	0
                                                  Other:	0
                                                  Total:	1
-                                                 Time:	2.643802
-                                                 Time avg:	2.643802
+                                                 Time:	2.734573
+                                                 Time avg:	2.734573
                            Model queries: 
                                             SAT:	0
                                             UNSAT:	0
@@ -68,18 +68,18 @@ binsec_rel relse -fml-solver-timeout 0 -relse-timeout 3600     -sse-depth 0 -sse
                                             UNSAT:	27
                                             Other:	0
                                             Total:	67
-                                            Time:	85.972490
-                                            Time avg:	1.283171
+                                            Time:	91.082106
+                                            Time avg:	1.359434
                            Query size avg/max:	3471.865672 / 4218
-                           Checks done/spared:	7 / 494
+                           Checks done/spared:	7 / 466
                            Coverage: 
                                        Paths:		7
                                        Conditionals:	7
                                        Forks:	33
-                                       DBA Instructions:	2544
-                                       x86 Instructions:	824
+                                       DBA Instructions:	2404
+                                       x86 Instructions:	782
                            Violations:		1
                            Status:	None
                            Result:	Insecure
-                           Elapsed time:	90.649132
+                           Elapsed time:	92.491920
  

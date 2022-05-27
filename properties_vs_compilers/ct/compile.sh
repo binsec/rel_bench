@@ -18,6 +18,10 @@ else
     CMD="make ${1}"
 fi
 
+for dir in ct-select ct-sort hacl_utility openssl_utility tea; do
+    mkdir -p ${PWD}/bin/${dir}
+done
+
 # --------- Add you new compiler below
 # # gcc-4.9.3 not working
 # # echo "------------------------------------------------"
