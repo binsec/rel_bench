@@ -1,0 +1,7 @@
+# Setting the canary and gs to 0
+gs_base<32>:=0x00000063;
+@[0x00000077, 4] := canary<32>;
+
+# Setting esp
+ebp<32>:=0xffffcc58;
+esp<32>:=0xffffcb70;
